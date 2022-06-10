@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <iostream>
 
+#include "objets.h"
+#include "Fenetre.h"
+
 //Bibliothèque SDL :
 #include <SDL.h>
 #include <SDL_image.h>
@@ -11,6 +14,13 @@
 //Début programme main
 int main(int argc, char** argv)
 {
+    Joueur J;
+    Position Pos;
+    //Initialisation position du joueur
+    J.x = 0;
+    J.y = 0;
+    Pos.n_x = 0;
+    Pos.n_y = 0;
 
     //Initialisation simple
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -22,7 +32,7 @@ int main(int argc, char** argv)
     {
         //Vie de la fenêtre
         SDL_Window* pWindow = NULL;
-        pWindow = SDL_CreateWindow("SDL2", SDL_WINDOWPOS_UNDEFINED,
+        pWindow = SDL_CreateWindow("Fenetre de Jeu", SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
             640,
             480,
@@ -42,7 +52,7 @@ int main(int argc, char** argv)
 
             while (isOpen)
             {
-                n_tactual = SDL_GetTicks();                                     //actualise le tick actuel
+               n_tactual = SDL_GetTicks();                                     //actualise le tick actuel
                 deltatime = n_tactual - n_tframe;                               //calcul le delta entre le tick actuel et tick de la frame                                        
 
                 if (deltatime >= (1000/60)) {                                   //Vérifie frame 60
@@ -51,14 +61,14 @@ int main(int argc, char** argv)
 
                     fps = 1000/deltatime;                                       //Calcul FPS
 
-                    if (fps!=62)
-                    {
-                        printf_s("fps : %d \n", fps);                           //Affichage FPS console anomalie
-                    }
-                    /*else
-                    {
-                        printf_s("fps : %d \n", fps);                            //Affichage FPS console habitude
-                    }*/
+                   // if (fps!=62)
+                   // {
+                       // printf_s("fps : %d \n", fps);                           //Affichage FPS console anomalie
+                   //}
+                    //else
+                   // {
+                   //     printf_s("fps : %d \n", fps);                            //Affichage FPS console habitude
+                   // }
                     deltatime = 0;
 
                     //meca()
@@ -68,7 +78,7 @@ int main(int argc, char** argv)
 
 
                 //Mort de la fenêtre
-                SDL_PollEvent(&event);
+              /*  SDL_PollEvent(&event);
                 switch (event.type)
                 {
                 case SDL_QUIT:                                                  //Evènement fermeture de la fenêtre
@@ -77,7 +87,25 @@ int main(int argc, char** argv)
 
                 default:                                                        //Evènement par défaut
                     break;
-                }
+                }*/
+
+
+                Joueur j = { 0,0,Idle };
+              
+                mouvement(&j);
+                //printf("%d", j.JoueurEtat);
+                SDL_Delay(1000);
+                update(&j);
+                
+               
+              //  afficheEtat();
+                
+                
+
+
+
+                /*if (valuekey == 0)
+                    printf("%d", valuekey);*/
             }
 
             SDL_DestroyWindow(pWindow);                                         //Fermeture de la fenêtre
