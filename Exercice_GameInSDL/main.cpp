@@ -8,6 +8,9 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
+//Arborescence :
+#include "map.cpp"
+
 //Début programme main
 int main(int argc, char** argv)
 {
@@ -22,11 +25,15 @@ int main(int argc, char** argv)
     {
         //Vie de la fenêtre
         SDL_Window* pWindow = NULL;
-        pWindow = SDL_CreateWindow("SDL2", SDL_WINDOWPOS_UNDEFINED,
-            SDL_WINDOWPOS_UNDEFINED,
+        pWindow = SDL_CreateWindow("SDL2", SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_CENTERED,
             640,
             480,
             SDL_WINDOW_SHOWN);
+
+        //Création du renderer
+        SDL_Renderer* renderer=NULL;
+        renderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED);
 
         //Tant que la fenêtre est vivante
         if (pWindow)
@@ -61,9 +68,12 @@ int main(int argc, char** argv)
                     }*/
                     deltatime = 0;
 
+                    SDL_Surface* screen;
+                    SDL_Event event;
+                    Map* m;
+                    m = ChargerMap("level1_1.txt");
+                    AfficherMap(m, screen);
                     //meca()
-                    //Update()
-                    //Render()
                 }
 
 
@@ -92,6 +102,7 @@ int main(int argc, char** argv)
     //Fin programme main
 
     SDL_SetRenderDrawColor;
+    //LibererMap(m);
     SDL_Quit();
 
     return 0;
